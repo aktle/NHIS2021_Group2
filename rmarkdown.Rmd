@@ -1,0 +1,28 @@
+---
+title: "r markdown gp2"
+author: "Daniel Gomez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+# Day 1: Data Import
+#Load these libraries
+library(tidyverse)
+
+#Import dataset, keep the csv in the data folder
+nhis_data <- read.csv("data/NHIS _Data_2021.csv")
+#Initial Exploration no cleaning
+cat("Data Structure:\n")
+str(nhis_data)
+cat("\nSumarry Statistics:\n")
+summary(nhis_data)
+
+cat("\nFirst 6 Rows:\n")
+head(nhis_data)
+```
+
+```{r}
+# Day 2: Data Cleaning
+
+```
