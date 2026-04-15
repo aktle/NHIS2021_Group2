@@ -24,5 +24,71 @@ head(nhis_data)
 
 ```{r}
 # Day 2: Data Cleaning
+library(tidyverse)
+
+#Need to pick a variable and check if anythings missing
+nhis_clean <- nhis_data %>%
+# Selecting only what I need
+select(AGEP_A, WEIGHTLBTC_A, HEIGHTTC_A, SEX_A, HISPALLP_A, 
+         EDUCP_A, PHSTAT_A, LSATIS4R_A) %>%
+#Remove missing values, look at the codebook
+filter(
+    !AGEP_A %in% c(97, 98, 99),
+    !WEIGHTLBTC_A %in% c(996, 997, 998, 999),
+    !HEIGHTTC_A %in% c(96, 97, 98, 99),
+    !SEX_A %in% c(7, 9),
+    !EDUCP_A %in% c(97, 98, 99),
+    !PHSTAT_A %in% c(7, 8, 9),
+    !LSATIS4R_A %in% c(7, 8, 9)
+  )
+# got to use the recode command
+nhis_clean <- nhis_clean %>%
+  mutate(
+#Recode EDUCP_A
+    EDUCP_A_recoded = case_when(
+      EDUCP_A %in% 0:4 ~ "1 - Less than High School",
+      EDUCP_A == 4 ~ "2 - High School Graduate", # (Note: adjusted to fit instructions, usually 0-3 and 4)
+      EDUCP_A %in% 5:7 ~ "3 - Some College",
+      EDUCP_A %in% 8:10 ~ "4 - College Grad or higher",
+      TRUE ~ NA_character_
+    ),
+#Convert to factor
+EDUCP_A_recoded = factor(EDUCP_A_recoded, 
+                             levels = c("1 - Less than High School", 
+                                        "2 - High School Graduate", 
+                                        "3 - Some College", 
+                                        "4 - College Grad or higher")),
+#Format the other Qualitative stuff to make it easier to read
+SEX_A = factor(SEX_A, levels = c(1, 2), labels = c("Male", "Female")),
+    PHSTAT_A = factor(PHSTAT_A, levels = c(1,2,3,4,5), 
+                      labels = c("Excellent", "Very Good", "Good", "Fair", "Poor")),
+    LSATIS4R_A = factor(LSATIS4R_A, levels = c(1,2,3,4), 
+                        labels = c("Very Satisfied", "Satisfied", "Dissatisfied", "Very Dissatisfied"))
+  ) %>%
+#Drop any rows that had NA
+drop_na()
+
+#This is to save it
+write_csv(nhis_clean, "data/nhis_clean.csv")
+print("Data cleaning complete. File saved to data/nhis_clean.csv")
+```
+```{r}
+#Day 3: The Univariate Information
+library(tidyverse)
+
+nhis_clean <- read_csv("data/nhis_clean.csv") %>%
+  mutate(across(c(SEX_A, EDUCP_A_recoded, PHSTAT_A, LSATIS4R_A), as.factor))
+# Quantitative Var
+quant_vars <-c("AGEP_A", "WEIGHTLBTC_A", "HEIGHTTC_A")
+
+#Summary I need to see
+summary(nhis_clean[quant_vars])
+
+#Standard Deviation
+sapply(nhis_clean[quant_vars], sd)
+# Somebody fill the rest on line 90 onward
+
+
 
 ```
+
