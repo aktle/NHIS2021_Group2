@@ -1,0 +1,157 @@
+---
+title: "r markdown gp2"
+author: "Daniel Gomez, Anna Le"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+```{r}
+# Day 1: Data Import
+nhis_data <- read.csv("NHIS2021_Group2-main/data/NHIS_Data_2021.csv")
+
+cat("Data Structure:\n")
+str(nhis_data)
+
+cat("\nSummary Statistics:\n")
+summary(nhis_data)
+
+cat("\nFirst 6 Rows:\n")
+head(nhis_data)
+```
+
+```{r}
+# Day 2: Data Cleaning
+nhis_clean <- nhis_data %>%
+  select(AGEP_A, WEIGHTLBTC_A, HEIGHTTC_A, SEX_A, HISPALLP_A, 
+         EDUCP_A, PHSTAT_A, LSATIS4R_A) %>%
+  filter(
+    !AGEP_A %in% c(97, 98, 99),
+    !WEIGHTLBTC_A %in% c(996, 997, 998, 999),
+    !HEIGHTTC_A %in% c(96, 97, 98, 99),
+    !SEX_A %in% c(7, 9),
+    !EDUCP_A %in% c(97, 98, 99),
+    !PHSTAT_A %in% c(7, 8, 9),
+    !LSATIS4R_A %in% c(7, 8, 9)
+  ) %>%
+  mutate(
+    EDUCP_A_recoded = case_when(
+      EDUCP_A %in% 0:3 ~ "1 - Less than High School",
+      EDUCP_A == 4 ~ "2 - High School Graduate",
+      EDUCP_A %in% 5:7 ~ "3 - Some College",
+      EDUCP_A %in% 8:10 ~ "4 - College Grad or higher",
+      TRUE ~ NA_character_
+    ),
+    
+    EDUCP_A_recoded = factor(
+      EDUCP_A_recoded,
+      levels = c(
+        "1 - Less than High School",
+        "2 - High School Graduate",
+        "3 - Some College",
+        "4 - College Grad or higher"
+      )
+    ),
+    
+    SEX_A = factor(SEX_A, levels = c(1,2), labels = c("Male", "Female")),
+    
+    PHSTAT_A = factor(
+      PHSTAT_A,
+      levels = c(1,2,3,4,5),
+      labels = c("Excellent", "Very Good", "Good", "Fair", "Poor")
+    ),
+    
+    LSATIS4R_A = factor(
+      LSATIS4R_A,
+      levels = c(1,2,3,4),
+      labels = c("Very Satisfied", "Satisfied", "Dissatisfied", "Very Dissatisfied")
+    )
+  ) %>%
+  drop_na()
+
+write_csv(nhis_clean, "NHIS2021_Group2-main/data/nhis_clean.csv")
+
+cat("Data cleaning complete.\n")
+```
+
+```{r}
+# Day 3: Univariate Analysis
+nhis_clean <- read_csv("NHIS2021_Group2-main/data/nhis_clean.csv") %>%
+  mutate(across(c(SEX_A, EDUCP_A_recoded, PHSTAT_A, LSATIS4R_A), as.factor))
+
+quant_vars <- c("AGEP_A", "WEIGHTLBTC_A", "HEIGHTTC_A")
+
+summary(nhis_clean[quant_vars])
+sapply(nhis_clean[quant_vars], sd)
+```
+
+```{r}
+# Histograms
+print(
+ggplot(nhis_clean, aes(x = AGEP_A)) +
+  geom_histogram() +
+  labs(title = "Age Distribution", x = "Age", y = "Count") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(x = WEIGHTLBTC_A)) +
+  geom_histogram() +
+  labs(title = "Weight Distribution", x = "Weight", y = "Count") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(x = HEIGHTTC_A)) +
+  geom_histogram() +
+  labs(title = "Height Distribution", x = "Height", y = "Count") +
+  theme_minimal()
+)
+```
+
+```{r}
+# Boxplots
+print(
+ggplot(nhis_clean, aes(y = AGEP_A)) +
+  geom_boxplot() +
+  labs(title = "Age Boxplot", y = "Age") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(y = WEIGHTLBTC_A)) +
+  geom_boxplot() +
+  labs(title = "Weight Boxplot", y = "Weight") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(y = HEIGHTTC_A)) +
+  geom_boxplot() +
+  labs(title = "Height Boxplot", y = "Height") +
+  theme_minimal()
+)
+```
+
+```{r}
+# Bar Plots
+print(
+ggplot(nhis_clean, aes(x = SEX_A)) +
+  geom_bar() +
+  labs(title = "Sex Distribution", x = "Sex", y = "Count") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(x = EDUCP_A_recoded)) +
+  geom_bar() +
+  labs(title = "Education Distribution", x = "Education", y = "Count") +
+  theme_minimal()
+)
+)
+```
+
+# if someone can please check lines 13, 75, 82, that would be great. Whenever I try to run it, it can't find the file. Please and thank you 
