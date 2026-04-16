@@ -91,4 +91,71 @@ sapply(nhis_clean[quant_vars], sd)
 
 
 ```
+```{r}
+# Histograms
+print(
+ggplot(nhis_clean, aes(x = AGEP_A)) +
+  geom_histogram() +
+  labs(title = "Age Distribution", x = "Age", y = "Count") +
+  theme_minimal()
+)
 
+print(
+ggplot(nhis_clean, aes(x = WEIGHTLBTC_A)) +
+  geom_histogram() +
+  labs(title = "Weight Distribution", x = "Weight", y = "Count") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(x = HEIGHTTC_A)) +
+  geom_histogram() +
+  labs(title = "Height Distribution", x = "Height", y = "Count") +
+  theme_minimal()
+)
+```
+
+```{r}
+# Boxplots
+print(
+ggplot(nhis_clean, aes(y = AGEP_A)) +
+  geom_boxplot() +
+  labs(title = "Age Boxplot", y = "Age") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(y = WEIGHTLBTC_A)) +
+  geom_boxplot() +
+  labs(title = "Weight Boxplot", y = "Weight") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(y = HEIGHTTC_A)) +
+  geom_boxplot() +
+  labs(title = "Height Boxplot", y = "Height") +
+  theme_minimal()
+)
+```
+
+```{r}
+# Bar Plots
+print(
+ggplot(nhis_clean, aes(x = SEX_A)) +
+  geom_bar() +
+  labs(title = "Sex Distribution", x = "Sex", y = "Count") +
+  theme_minimal()
+)
+
+print(
+ggplot(nhis_clean, aes(x = EDUCP_A_recoded)) +
+  geom_bar() +
+  labs(title = "Education Distribution", x = "Education", y = "Count") +
+  theme_minimal()
+)
+
+```
+
+# if someone can please check lines 13, 75, 82, that would be great. Whenever I try to run it, it can't find the file. Please and thank you
+#Do new project,version control,git,paste the url, type a letter onto the r markdown hit save it should give the option to save the project file to a spot of your choosing on your pc then stage your files in the top right git pane and hit commit leave a message and then push, remember where this project file is stored and open that and do pull from that file, also run the tasks in r markdown in order since there is a clean csv we are working from in day 2
