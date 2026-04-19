@@ -1,0 +1,21 @@
+---
+title: "Final_Report"
+author: "Brisa Banuelos"
+date: "2026-04-19"
+output: word_document
+---
+#Introduction
+This report goes through a variety of health variables and shows how they could be connected. These variables include quantitative variables, such as, age, weight, and height. Qualitative variables include sex of sample adult, race/ethnicity, educational level, general health status, and life satisfaction. 
+
+#Methods
+After loading the data into R studio, the data was cleaned and checked for missing values in the variables. After cleaning the data, there were multiple methods used to display the connection between certain variables. Some of these methods included showing a summary of the statistics for the quantitative variables, creating frequency tables for qualitative variables, creating bar plots, box plots, and scatter plots to compare the two types of variables. 
+
+#Results
+To begin, we first have to visual the distribution of the health variables of the participants. When looking at age distribution through a histogram, there was a somewhat even distribution of the participant's ages. The more "popular" ages of the participants included around 63, 71, and 55 years old. The weight distribution of the participants showed a histogram slightly skewed to the right. Some of the "popular" weights included around 180, 160, and 149 pounds. The height distribution among the participants was even and wasn't skewed. A few of the "popular" heights included being around 64, 66, and 67 inches. Lastly, the data appeared to have slightly more female particiapnts than male participants. The scatter plots that compare height vs weight shows that as the height of a participant increases, so does the participants weight, with the correlation value being about 0.05. When looking at the enhanced scatter plot that compares height and weight by sex and educational level, it shows that as the height increased, weight does as well, and that majority male participants are heavier and taller than the female participants. Additionally, a high volume of participants fell in the high school graduate level and college graduate or better level. Lastly, the correlation matrix showed a negative relationship between age and weight, a negative relationship between age and height, and a positive relationship between weight and height. 
+
+#Discussion
+After reviewing the results from the data collected and visuals created, there is a trend that there is a relationship between weight and height, which is, as a participants height increases, their weight increases as well. Additionally, males were more likely to have a higher weight and height compared to the female participants, as well a high volume of participants either being high school graduates or college graduates. The level of a participants education may reflect how well they're educated on their health and give reasoning behind their weight and height.
+
+#Conclusion
+By reviewing the data collected, the associations between certain health variables, such as weight, height, sex, and educational level, are able to be seen. For example, there was a strong relationship between height an weight consistently throughout the different visualizations created, such as scatterplots and the correlation matrix. 
+

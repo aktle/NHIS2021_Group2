@@ -155,7 +155,48 @@ ggplot(nhis_clean, aes(x = EDUCP_A_recoded)) +
   theme_minimal()
 )
 
+#Correlation coefficient
+correlation_value <- cor(nhis_clean$HEIGHTTC_A, nhis_clean$WEIGHTLBTC_A, use = "complete.obs")
+cat("Correlation Between Height vs Weight", correlation_value, "\n")
+
+#Scatter Plots
+#Base R scatter plot
+plot(nhis_clean$HEIGHTTC_A, nhis_clean$WEIGHTLBTC_A,
+     main = "Height vs Weight",
+     xlab = "Height in Inches",
+     ylab = "Weight in Pounds",
+     col = "blue")
+#ggplot2 scatter plot
+ggplot(nhis_clean, aes(x = HEIGHTTC_A, y = WEIGHTLBTC_A)) +
+  geom_point(color = "pink") +
+  labs(title = "Scatterplot of Height vs Weight", x = "Height in Inches", y = "Weight in Pounds") +
+  theme_minimal()
 ```
 
+```{r}
+#Day 4: Multivariate Analysis & Report Drafting
+#load library that is going to be used
+library(psych)
+#enhanced scatter plot from Day 3
+ggplot(nhis_clean, aes(x = HEIGHTTC_A , y = WEIGHTLBTC_A, color = SEX_A)) +
+  geom_point() +
+  facet_wrap(~ EDUCP_A) +
+  labs(
+    title = "Height vs Weight by Sex and Educational Level",
+    x = "Height in Inches",
+    y = "Weight in Pounds",
+    color = "Sex"
+  ) +
+  theme_minimal()
+
+correlation_variables <- nhis_clean %>%
+  select(AGEP_A, WEIGHTLBTC_A, HEIGHTTC_A)
+pairs.panels(correlation_variables,
+             method = "pearson",
+             hist.col = "lightblue",
+             density = TRUE,
+             ellipses = TRUE,
+             main = "Correlation Matrix: Age, Weight, and Height")
+```
 # if someone can please check lines 13, 75, 82, that would be great. Whenever I try to run it, it can't find the file. Please and thank you
 #Do new project,version control,git,paste the url, type a letter onto the r markdown hit save it should give the option to save the project file to a spot of your choosing on your pc then stage your files in the top right git pane and hit commit leave a message and then push, remember where this project file is stored and open that and do pull from that file, also run the tasks in r markdown in order since there is a clean csv we are working from in day 2
