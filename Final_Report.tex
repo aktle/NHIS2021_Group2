@@ -1,0 +1,190 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Final\_Report},
+  pdfauthor={Brisa Banuelos and Quynh Pham},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Final\_Report}
+\author{Brisa Banuelos and Quynh Pham}
+\date{2026-04-19}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+This report goes through a variety of health variables and shows how
+they could be connected. These variables include quantitative variables,
+such as, age, weight, and height. Qualitative variables include sex of
+sample adult, race/ethnicity, educational level, general health status,
+and life satisfaction.
+
+\section{Methods}\label{methods}
+
+After loading the data into R studio, the data was cleaned and checked
+for missing values in the variables. After cleaning the data, there were
+multiple methods used to display the connection between certain
+variables. Some of these methods included showing a summary of the
+statistics for the quantitative variables, creating frequency tables for
+qualitative variables, creating bar plots, box plots, and scatter plots
+to compare the two types of variables.
+
+\section{Results}\label{results}
+
+To begin, we first have to visualize the distribution of the health
+variables of the participants. When looking at age distribution through
+a histogram, there was a somewhat even distribution of the participant's
+ages. The more ``popular'' ages of the participants included around 63,
+71, and 55 years old. The weight distribution of the participants showed
+a histogram slightly skewed to the right. Some of the ``popular''
+weights included around 180, 160, and 149 pounds. The height
+distribution appears approximately normal, with no strong skew. A few of
+the ``popular'' heights included being around 64, 66, and 67 inches.
+Lastly, the data appeared to have slightly more female participants than
+male participants. The scatter plots that compare height vs weight show
+that as the height of a participant increases, so does the participant's
+weight.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(nhis}\SpecialCharTok{$}\NormalTok{HEIGHTTC\_A, nhis}\SpecialCharTok{$}\NormalTok{WEIGHTLBTC\_A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5023037
+\end{verbatim}
+
+The correlation between height and weight is positive, indicating a
+linear relationship where taller individuals tend to weigh more. When
+looking at the enhanced scatter plot that compares height and weight by
+sex and educational level, it shows that as height increases, weight
+also increases, and that the majority of male participants are heavier
+and taller than the female participants. Additionally, a large
+proportion of participants fall into the high school graduate level and
+college graduate or better level. Lastly, the correlation matrix showed
+a weaker or slightly negative relationship between age and weight, a
+negative relationship between age and height, and a positive
+relationship between weight and height.
+
+\section{Discussion}\label{discussion}
+
+After reviewing the results from the data collected and visuals created,
+there is a clear relationship between weight and height, which is, as a
+participant's height increases, their weight increases as well.
+Additionally, males were more likely to have a higher weight and height
+compared to the female participants, as well a large proportion of
+participants either being high school graduates or college graduates.
+The findings suggest that demographic factors such as sex and education
+level are associated with differences in height and weight, although
+further analysis would be needed to determine causation.
+
+\section{Conclusion}\label{conclusion}
+
+By reviewing the data collected, the associations between certain health
+variables, such as weight, height, sex, and educational level, are able
+to be seen. For example, there was a positive relationship between
+height and weight consistently throughout the different visualizations
+created, such as scatterplots and the correlation matrix.
+
+\end{document}
