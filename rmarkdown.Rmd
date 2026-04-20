@@ -15,10 +15,13 @@ nhis_data <- read.csv("data/NHIS _Data_2021.csv")
 #Initial Exploration no cleaning
 cat("Data Structure:\n")
 str(nhis_data)
+#str has to dow tih structure, it will compact the information of the r object
 cat("\nSumarry Statistics:\n")
+#This should show the minimum,1st quartile,median,mean,3rd quar, and maximum value
 summary(nhis_data)
-
 cat("\nFirst 6 Rows:\n")
+#head will print the first 6 rows, just if you want a quick overview
+#to ensure it works
 head(nhis_data)
 ```
 
@@ -32,6 +35,7 @@ nhis_clean <- nhis_data %>%
 select(AGEP_A, WEIGHTLBTC_A, HEIGHTTC_A, SEX_A, HISPALLP_A, 
          EDUCP_A, PHSTAT_A, LSATIS4R_A) %>%
 #Remove missing values, look at the codebook
+#the numbers are to keep the rows where the age is not 97,98 or 99 its good because it removes the missing or unknown responses which came from that codebook
 filter(
     !AGEP_A %in% c(97, 98, 99),
     !WEIGHTLBTC_A %in% c(996, 997, 998, 999),
@@ -44,7 +48,7 @@ filter(
 # got to use the recode command
 nhis_clean <- nhis_clean %>%
   mutate(
-#Recode EDUCP_A
+#Recode EDUCP_A, if its a number thats 0 to 4, it will make 1 that description, the last line is to account when the number does not follow that rule
     EDUCP_A_recoded = case_when(
       EDUCP_A %in% 0:4 ~ "1 - Less than High School",
       EDUCP_A == 4 ~ "2 - High School Graduate", # (Note: adjusted to fit instructions, usually 0-3 and 4)
@@ -52,7 +56,7 @@ nhis_clean <- nhis_clean %>%
       EDUCP_A %in% 8:10 ~ "4 - College Grad or higher",
       TRUE ~ NA_character_
     ),
-#Convert to factor
+#Convert to factor whcih I gotta do before I start plotting
 EDUCP_A_recoded = factor(EDUCP_A_recoded, 
                              levels = c("1 - Less than High School", 
                                         "2 - High School Graduate", 
@@ -65,11 +69,12 @@ SEX_A = factor(SEX_A, levels = c(1, 2), labels = c("Male", "Female")),
     LSATIS4R_A = factor(LSATIS4R_A, levels = c(1,2,3,4), 
                         labels = c("Very Satisfied", "Satisfied", "Dissatisfied", "Very Dissatisfied"))
   ) %>%
-#Drop any rows that had NA
+#Drop any rows that had NA, I dont want to see them
 drop_na()
 
 #This is to save it
 write_csv(nhis_clean, "data/nhis_clean.csv")
+#print so I can view that this worked
 print("Data cleaning complete. File saved to data/nhis_clean.csv")
 ```
 ```{r}
