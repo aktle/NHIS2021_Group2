@@ -11,7 +11,7 @@ library(tidyverse)
 
 ```{r}
 # Day 1: Data Import
-nhis_data <- read.csv("NHIS2021_Group2-main/data/NHIS_Data_2021.csv")
+nhis_data <- read.csv("data/NHIS _Data_2021.csv")
 
 cat("Data Structure:\n")
 str(nhis_data)
@@ -72,14 +72,14 @@ nhis_clean <- nhis_data %>%
   ) %>%
   drop_na()
 
-write_csv(nhis_clean, "NHIS2021_Group2-main/data/nhis_clean.csv")
+write_csv(nhis_clean, "data/nhis_clean.csv")
 
 cat("Data cleaning complete.\n")
 ```
 
 ```{r}
 # Day 3: Univariate Analysis
-nhis_clean <- read_csv("NHIS2021_Group2-main/data/nhis_clean.csv") %>%
+nhis_clean <- read_csv("data/nhis_clean.csv") %>%
   mutate(across(c(SEX_A, EDUCP_A_recoded, PHSTAT_A, LSATIS4R_A), as.factor))
 
 quant_vars <- c("AGEP_A", "WEIGHTLBTC_A", "HEIGHTTC_A")
