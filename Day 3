@@ -153,5 +153,3 @@ ggplot(nhis_clean, aes(x = EDUCP_A_recoded)) +
 )
 )
 ```
-
-# if someone can please check lines 13, 75, 82, that would be great. Whenever I try to run it, it can't find the file. Please and thank you 
